@@ -20,6 +20,12 @@ export class StepController {
         message: '请输入步数',
       });
     }
+    if (req.step > 99980 || req.step < 1) {
+      return res.status(200).json({
+        code: 401,
+        message: '请输入1~99980之间的步数',
+      });
+    }
     const result = await this.stepService.getStep(req.user, req.pwd, req.step);
     if (!result) {
       return res.status(200).json({
