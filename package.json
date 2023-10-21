@@ -25,6 +25,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^3.0.4",
+    "NeteaseCloudMusicApi": "^4.13.3",
     "axios": "^1.5.1",
     "dayjs": "1.11.7",
     "reflect-metadata": "^0.1.13",

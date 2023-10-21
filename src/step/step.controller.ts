@@ -1,32 +1,33 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 import { StepService } from './step.service';
+import { Response } from 'express';
 
 @Controller('step')
 export class StepController {
   constructor(private readonly stepService: StepService) {
   }
 
-  @Get()
-  async getStep(@Res() res, @Query() req) {
-    if (!req.user && !req.pwd) {
+  @Post()
+  async getStep(@Res() res: Response, @Body('user') user: string, @Body('pwd') pwd: string, @Body('step') step: string) {
+    if (!user && !pwd) {
       return res.status(200).json({
         code: 401,
         message: '请输入用户名密码',
       });
     }
-    if (!req.step) {
+    if (!step) {
       return res.status(200).json({
         code: 401,
         message: '请输入步数',
       });
     }
-    if (req.step > 99980 || req.step < 1) {
+    if (Number(step) > 99980 || Number(step) < 1) {
       return res.status(200).json({
         code: 401,
         message: '请输入1~99980之间的步数',
       });
     }
-    const result = await this.stepService.getStep(req.user, req.pwd, req.step);
+    const result = await this.stepService.getStep(user, pwd, step);
     if (!result) {
       return res.status(200).json({
         code: 401,
@@ -35,7 +36,7 @@ export class StepController {
     }
     return res.status(200).json({
       code: 200,
-      message: `成功为${req.user}修改${req.step}步`,
+      message: `成功为${user}修改${step}步`,
     });
   }
 }

@@ -1,14 +1,19 @@
-## 小米运动刷步数接口
+# 乱七八糟的接口
 
-暂时只写成了一个接口，后续有时间再完善，目前写了伪装ip，目前是每次请求都会刷步数，后续写成定时任务，每天定时刷步数
+暂时只写成了两个接口，后续有时间再完善
 
-## Installation
+## 环境要求
 
+需要 NodeJS 14+ 环境
+
+## 安装
 ```bash
+$ git clone https://github.com/luolayo/apiAll.git
+$ cd apiAll
 $ yarn install
 ```
 
-## Running the app
+## 运行
 
 ```bash
 # development
@@ -21,25 +26,21 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## 接口地址和参数说明
+## 接口文档
 
-127.0.0.1:3000/step
+ApiFox共享文档：https://apiall-github.apifox.cn
 
-|  参数  |   类型   |   说明   |           备注            |
-|:----:|:------:|:------:|:-----------------------:|
-| step | number |  刷的步数  | 1-99980多了就超出出去了，不建议超过4万 |
-| user | string | 小米运动账号 | 可以是手机号也可以是邮箱，但是只能是这两种类型 |
-| pwd  | string | 小米运动密码 |            无            |
+先凑合着看吧有空再写文档
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If
-you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 目前有的接口
 
-## Stay in touch
+1.小米运动刷步数
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2.网易云音乐刷每日听歌量
 
-## License
+## 感谢名单及调用库
 
-Nest is [MIT licensed](LICENSE).
+（不想重复造轮子能用别人的就用别人的吧）
+
+[Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+

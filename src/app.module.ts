@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StepModule } from './step/step.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { NeteaseCloudMusicModule } from './netease-cloud-music/netease-cloud-music.module';
 
 @Module({
-  imports: [StepModule, ScheduleModule.forRoot()],
+  imports: [StepModule, ScheduleModule.forRoot(), NeteaseCloudMusicModule],
   controllers: [AppController],
   providers: [AppService],
 })
