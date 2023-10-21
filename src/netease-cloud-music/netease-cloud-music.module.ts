@@ -6,5 +6,4 @@ import { NeteaseCloudMusicController } from './netease-cloud-music.controller';
   controllers: [NeteaseCloudMusicController],
   providers: [NeteaseCloudMusicService],
 })
-export class NeteaseCloudMusicModule {
-}
+export class NeteaseCloudMusicModule {}

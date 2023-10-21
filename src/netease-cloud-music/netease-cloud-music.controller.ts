@@ -1,14 +1,21 @@
 import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
+
 import { NeteaseCloudMusicService } from './netease-cloud-music.service';
 import { Response } from 'express';
 
 @Controller('netease-cloud-music')
 export class NeteaseCloudMusicController {
-  constructor(private readonly neteaseCloudMusicService: NeteaseCloudMusicService) {
-  }
+  constructor(
+    private readonly neteaseCloudMusicService: NeteaseCloudMusicService,
+  ) {}
 
   @Post('login')
-  async login(@Body('phone') phone: string, @Body('password') password: string, @Body('countryCode') countryCode: string = '86', @Res() res: Response) {
+  async login(
+    @Body('phone') phone: string,
+    @Body('password') password: string,
+    @Body('countryCode') countryCode: string = '86',
+    @Res() res: Response,
+  ) {
     if (!phone || !password) {
       return res.status(400).json({
         code: 400,
@@ -18,7 +25,11 @@ export class NeteaseCloudMusicController {
     try {
       res.status(200).json({
         code: 200,
-        data: await this.neteaseCloudMusicService.cellphone_login(phone, password, countryCode),
+        data: await this.neteaseCloudMusicService.cellphone_login(
+          phone,
+          password,
+          countryCode,
+        ),
       });
     } catch (err) {
       const { code, message } = JSON.parse(err.message);

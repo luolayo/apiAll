@@ -4,8 +4,7 @@ import { Response } from 'express';
 
 @Controller('tiktok')
 export class TiktokController {
-  constructor(private readonly tiktokService: TiktokService) {
-  }
+  constructor(private readonly tiktokService: TiktokService) {}
 
   @Post()
   async getTiktok(@Body('url') url: string, @Res() res: Response) {

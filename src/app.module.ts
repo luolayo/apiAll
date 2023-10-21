@@ -7,9 +7,13 @@ import { NeteaseCloudMusicModule } from './netease-cloud-music/netease-cloud-mus
 import { TiktokModule } from './tiktok/tiktok.module';
 
 @Module({
-  imports: [StepModule, ScheduleModule.forRoot(), NeteaseCloudMusicModule, TiktokModule],
+  imports: [
+    StepModule,
+    ScheduleModule.forRoot(),
+    NeteaseCloudMusicModule,
+    TiktokModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-}
+export class AppModule {}
