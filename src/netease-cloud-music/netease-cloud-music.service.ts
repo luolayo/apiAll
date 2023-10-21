@@ -29,7 +29,6 @@ export class NeteaseCloudMusicService {
       password,
       countrycode: countryCode,
     });
-    console.log(res);
     if (res.code !== 200) {
       throw new Error(JSON.stringify(res));
     }

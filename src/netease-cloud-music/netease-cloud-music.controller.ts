@@ -21,10 +21,11 @@ export class NeteaseCloudMusicController {
         data: await this.neteaseCloudMusicService.cellphone_login(phone, password, countryCode),
       });
     } catch (err) {
-      if (err.code === 502) {
+      const { code, message } = JSON.parse(err.message);
+      if (code === 502) {
         return res.status(200).json({
           code: 502,
-          message: err.message,
+          message: message,
         });
       }
       return res.status(500).json({
