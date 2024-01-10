@@ -44,12 +44,16 @@ export class NeteaseCloudMusicService {
     if (res.code !== 200) {
       throw new Error(res.message.toString());
     }
-    const { unikey } = res.data as { code: number, unikey: string };
+    const { unikey } = res.data as { code: number; unikey: string };
     const { body: res2 } = await login_qr_create({ key: unikey, qrimg: true });
     if (res2.code !== 200) {
       throw new Error(res2.message.toString());
     }
-    const { qrimg } = res2.data as { code: number, unikey: string, qrimg: string };
+    const { qrimg } = res2.data as {
+      code: number;
+      unikey: string;
+      qrimg: string;
+    };
     console.log(unikey);
     return {
       key: unikey,
@@ -74,7 +78,7 @@ export class NeteaseCloudMusicService {
   async playlist(cookie: string) {
     return await personalized({
       cookie,
-      limit: 350,
+      limit: 1000,
     });
   }
 
@@ -95,7 +99,7 @@ export class NeteaseCloudMusicService {
       });
       const playlist = res2.body.playlist as { tracks: Array<{ id: string }> };
       for (const track of playlist.tracks) {
-        const res3 = await scrobble({
+        await scrobble({
           id: track.id,
           sourceid: id,
           time: 61,
@@ -103,7 +107,7 @@ export class NeteaseCloudMusicService {
         });
         ++count;
       }
-      if (count > 350) {
+      if (count > 1000) {
         break;
       }
     }

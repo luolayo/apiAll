@@ -4,11 +4,15 @@ import { Response } from 'express';
 
 @Controller('step')
 export class StepController {
-  constructor(private readonly stepService: StepService) {
-  }
+  constructor(private readonly stepService: StepService) {}
 
   @Post()
-  async getStep(@Res() res: Response, @Body('user') user: string, @Body('pwd') pwd: string, @Body('step') step: string) {
+  async getStep(
+    @Res() res: Response,
+    @Body('user') user: string,
+    @Body('pwd') pwd: string,
+    @Body('step') step: string,
+  ) {
     if (!user && !pwd) {
       return res.status(200).json({
         code: 401,

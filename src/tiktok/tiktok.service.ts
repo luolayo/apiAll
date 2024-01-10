@@ -3,10 +3,16 @@ import axios from 'axios';
 
 @Injectable()
 export class TiktokService {
-  private async request(url: string, method: string, data: any, headers: any = false) {
+  private async request(
+    url: string,
+    method: string,
+    data: any,
+    headers: any = false,
+  ) {
     const default_headers = {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2',
+      'User-Agent':
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2',
     };
     return axios({
       url,
@@ -31,7 +37,8 @@ export class TiktokService {
    * @param url
    */
   processIutput(url: string): string {
-    if (!this.checkUrl(url)) throw new Error(JSON.stringify({ code: 400, message: 'url格式不正确' }));
+    if (!this.checkUrl(url))
+      throw new Error(JSON.stringify({ code: 400, message: 'url格式不正确' }));
     const Regex: RegExp = /v\.douyin\.com\/[a-zA-Z0-9]+/;
     return url.match(Regex)[0].split('/')[1];
   }
@@ -61,7 +68,10 @@ export class TiktokService {
     const res = await this.request(api, 'GET', {});
     const uri = res.data.item_list[0].video.play_addr.uri;
     const desc = res.data.item_list[0].desc;
-    if (!uri) throw new Error(JSON.stringify({ code: 400, message: '获取视频地址失败' }));
+    if (!uri)
+      throw new Error(
+        JSON.stringify({ code: 400, message: '获取视频地址失败' }),
+      );
     return {
       desc,
       url: `www.iesdouyin.com/aweme/v1/play/?video_id=${uri}&ratio=1080p&line=0`,
@@ -69,13 +79,16 @@ export class TiktokService {
   }
 
   async getVideoUrl(url: string) {
-    if (!this.checkUrl(url)) throw new Error(JSON.stringify({ code: 400, message: 'url格式不正确' }));
+    if (!this.checkUrl(url))
+      throw new Error(JSON.stringify({ code: 400, message: 'url格式不正确' }));
     const id = this.processIutput(url);
     const video_id = await this.getVideoId(id);
     try {
       return await this.getVideoInfo(video_id);
     } catch (e) {
-      throw new Error(JSON.stringify({ code: 500, message: '获取视频地址失败' }));
+      throw new Error(
+        JSON.stringify({ code: 500, message: '获取视频地址失败' }),
+      );
     }
   }
 }
