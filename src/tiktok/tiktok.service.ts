@@ -58,21 +58,32 @@ export class TiktokService {
      * 有点麻烦-_-|| 这个链接找的好难受
      */
     const link = request.res.responseUrl;
-    const Regex: RegExp = /video\/([0-9]+)/;
-    return link.match(Regex)[1];
+    // 这里正则改了一下，之前只针对视频进行提取，现在图文也能提取了
+    const Regex: RegExp = /share\/([a-z0-9]+)\/([0-9]+)/;
+    return link.match(Regex)[2];
   }
 
   async getVideoInfo(video_id: string) {
     // 这玩意是抖音自己的API
     const api = `https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?reflow_source=reflow_page&item_ids=${video_id}&a_bogus=64745b2b5bdc4e75b720a9a85b19867a`;
     const res = await this.request(api, 'GET', {});
-    const uri = res.data.item_list[0].video.play_addr.uri;
+    console.log(res, api);
+    const flag = res.data.item_list[0].images;
     const desc = res.data.item_list[0].desc;
-    if (!uri)
-      throw new Error(
-        JSON.stringify({ code: 400, message: '获取视频地址失败' }),
-      );
+    if (flag.length > 0) {
+      const images = Array<string>();
+      flag.forEach((item: any) => {
+        images.push(item.url_list[0] as string);
+      });
+      return {
+        desc,
+        images,
+        type: 'image',
+      };
+    }
+    const uri = res.data.item_list[0].video.play_addr.uri;
     return {
+      type: 'video',
       desc,
       url: `www.iesdouyin.com/aweme/v1/play/?video_id=${uri}&ratio=1080p&line=0`,
     };
