@@ -43,4 +43,30 @@ export class StepController {
       message: `成功为${user}修改${step}步`,
     });
   }
+
+  @Post('addUser')
+  async addUser(
+    @Res() res: Response,
+    @Body('user') user: string,
+    @Body('pwd') pwd: string,
+    @Body('step') step: string,
+  ) {
+    if (!user && !pwd) {
+      return res.status(200).json({
+        code: 401,
+        message: '请输入用户名密码',
+      });
+    }
+    const result = await this.stepService.create(user, pwd, step);
+    if (!result) {
+      return res.status(200).json({
+        code: 401,
+        message: '用户名或密码错误',
+      });
+    }
+    return res.status(200).json({
+      code: 200,
+      message: `成功添加用户${user}`,
+    });
+  }
 }

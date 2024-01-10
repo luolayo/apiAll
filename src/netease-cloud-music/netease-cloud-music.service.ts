@@ -107,7 +107,7 @@ export class NeteaseCloudMusicService {
         });
         ++count;
       }
-      if (count > 350) {
+      if (count > 1000) {
         break;
       }
     }
