@@ -39,6 +39,17 @@ ApiFox共享文档：https://apiall-github.apifox.cn
 2.网易云音乐刷每日听歌量
 
 3.抖音去水印
+## 更新日志
+<details>
+<summary>点开查看</summary>
+
+23-11-09
+
+1、小米运动初步加了一个数据库然后写了每天18点读取数据库刷步数
+
+2、eslint格式化了全部文件
+
+</details>
 
 ## 感谢名单及调用库
 
