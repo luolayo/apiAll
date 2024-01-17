@@ -3,11 +3,12 @@ import {
   login_cellphone,
   login_qr_check,
   login_qr_create,
-  login_qr_key,
+  login_qr_key, login_refresh,
   personalized,
   playlist_detail,
   scrobble,
 } from 'NeteaseCloudMusicApi';
+import { MusicData } from './typs';
 
 /**
  * 网易云音乐刷打卡歌曲
@@ -25,15 +26,21 @@ export class NeteaseCloudMusicService {
    * @param countryCode 国家码，用于国外手机号登录，例如美国传入：1
    */
   async cellphone_login(phone: string, password: string, countryCode: string) {
-    const { body: res } = await login_cellphone({
+    const { body } = await login_cellphone({
       phone,
       password,
       countrycode: countryCode,
     });
+    const res: MusicData = body as unknown as MusicData;
     if (res.code !== 200) {
       throw new Error(JSON.stringify(res));
     }
-    return res.cookie;
+    return {
+      cookie: res.cookie,
+      id: res.account.id,
+      nickname: res.profile.nickname,
+      avatarUrl: res.profile.avatarUrl,
+    };
   }
 
   /**
@@ -66,7 +73,6 @@ export class NeteaseCloudMusicService {
    * @param key
    */
   async qr_login_check(key: string) {
-    console.log(key);
     const { body: res } = await login_qr_check({ key });
     return res;
   }
@@ -112,5 +118,9 @@ export class NeteaseCloudMusicService {
       }
     }
     return count;
+  }
+  async refresh(cookie: string){
+    const res = await login_refresh({cookie});
+    return res;
   }
 }

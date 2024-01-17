@@ -79,4 +79,17 @@ export class NeteaseCloudMusicController {
       data: await this.neteaseCloudMusicService.sign(cookie),
     });
   }
+  @Post('refresh')
+  async refresh(@Body('cookie') cookie: string, @Res() res: Response) {
+    if (!cookie) {
+      return res.status(400).json({
+        code: 400,
+        message: 'cookie不能为空',
+      });
+    }
+    res.status(200).json({
+      code: 200,
+      data: await this.neteaseCloudMusicService.refresh(cookie),
+    })
+  }
 }
