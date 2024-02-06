@@ -133,6 +133,14 @@ export class NeteaseCloudMusicService {
   async getUserInfo(cookie: string) {
     const {body} = await user_account({cookie})
     const res = body as unknown as MusicData;
-    return res;
+    if (res.code !== 200) {
+      throw new Error(JSON.stringify(res));
+    }
+    return {
+      cookie: res.cookie,
+      id: res.account.id,
+      nickname: res.profile.nickname,
+      avatarUrl: res.profile.avatarUrl,
+    };
   }
 }
