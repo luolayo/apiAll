@@ -47,10 +47,9 @@ export class TiktokService {
     // 这玩意是抖音自己的API
     const api = `https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?reflow_source=reflow_page&item_ids=${video_id}&a_bogus=64745b2b5bdc4e75b720a9a85b19867a`;
     const res = await get<VideoInfoData>('getVideoInfo', api);
-    console.log(res, api);
     const flag = res.data.item_list[0].images;
     const desc = res.data.item_list[0].desc;
-    if (flag.length > 0) {
+    if (flag && flag.length > 0) {
       let images = Array<string>();
       flag.forEach((item: any) => {
         images.push(item.url_list[0] as string);
@@ -73,10 +72,11 @@ export class TiktokService {
     if (!this.checkUrl(url)) throw new Error(JSON.stringify({ code: 400, message: 'url格式不正确' }));
     const id = this.processIutput(url);
     const video_id = await this.getVideoId(id);
-    try {
-      return await this.getVideoInfo(video_id);
-    } catch (e) {
-      throw new Error(JSON.stringify({ code: 500, message: '获取视频地址失败' }));
-    }
+    // try {
+    //   return await this.getVideoInfo(video_id);
+    // } catch (e) {
+    //   throw new Error(JSON.stringify({ code: 500, message: '获取视频地址失败' }));
+    // }
+    return await this.getVideoInfo(video_id);
   }
 }
