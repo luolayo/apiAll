@@ -3,10 +3,12 @@ import {
   login_cellphone,
   login_qr_check,
   login_qr_create,
-  login_qr_key, login_refresh,
+  login_qr_key,
+  login_refresh,
   personalized,
   playlist_detail,
   scrobble,
+  user_account,
 } from 'NeteaseCloudMusicApi';
 import { MusicData } from './typs';
 
@@ -121,6 +123,16 @@ export class NeteaseCloudMusicService {
   }
   async refresh(cookie: string){
     const res = await login_refresh({cookie});
+    return res;
+  }
+
+  /**
+   * 获取用户信息
+   * @param cookie {string}
+   */
+  async getUserInfo(cookie: string) {
+    const {body} = await user_account({cookie})
+    const res = body as unknown as MusicData;
     return res;
   }
 }

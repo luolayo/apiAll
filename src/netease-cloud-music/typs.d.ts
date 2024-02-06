@@ -1,5 +1,3 @@
-
-
 export interface MusicData  {
 	code: number
 	account: RootObjectAccount;
