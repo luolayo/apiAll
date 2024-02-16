@@ -41,6 +41,8 @@ ApiFox共享文档：https://apiall-github.apifox.cn
 
 3.抖音去水印
 
+4.二次元随机图片
+
 ## 更新日志
 
 <details>
@@ -57,6 +59,9 @@ ApiFox共享文档：https://apiall-github.apifox.cn
 
 24-01-17
 更新网易云音乐，添加了一些功能
+
+24-02-12
+添加二次元随机图片接口
 </details>
 
 ## 感谢名单及调用库
