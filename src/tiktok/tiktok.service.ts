@@ -72,11 +72,10 @@ export class TiktokService {
     if (!this.checkUrl(url)) throw new Error(JSON.stringify({ code: 400, message: 'url格式不正确' }));
     const id = this.processIutput(url);
     const video_id = await this.getVideoId(id);
-    // try {
-    //   return await this.getVideoInfo(video_id);
-    // } catch (e) {
-    //   throw new Error(JSON.stringify({ code: 500, message: '获取视频地址失败' }));
-    // }
-    return await this.getVideoInfo(video_id);
+    try {
+      return await this.getVideoInfo(video_id);
+    } catch (e) {
+      throw new Error(JSON.stringify({ code: 500, message: '获取视频地址失败' }));
+    }
   }
 }
