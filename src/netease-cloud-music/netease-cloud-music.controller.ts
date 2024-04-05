@@ -5,8 +5,9 @@ import { Response } from 'express';
 
 @Controller('netease-cloud-music')
 export class NeteaseCloudMusicController {
-  constructor(private readonly neteaseCloudMusicService: NeteaseCloudMusicService) {
-  }
+  constructor(
+    private readonly neteaseCloudMusicService: NeteaseCloudMusicService,
+  ) {}
 
   @Post('login')
   async login(
@@ -90,7 +91,7 @@ export class NeteaseCloudMusicController {
     res.status(200).json({
       code: 200,
       data: await this.neteaseCloudMusicService.refresh(cookie),
-    })
+    });
   }
   @Get('user_info')
   async getUserInfo(@Query('cookie') cookie: string, @Res() res: Response) {
@@ -103,6 +104,14 @@ export class NeteaseCloudMusicController {
     res.status(200).json({
       code: 200,
       data: await this.neteaseCloudMusicService.getUserInfo(cookie),
-    })
+    });
+  }
+
+  @Get('qd')
+  async userSign(@Res() res: Response) {
+    res.status(200).json({
+      code: 200,
+      data: await this.neteaseCloudMusicService.userSign(),
+    });
   }
 }

@@ -19,7 +19,6 @@ import { MusicData } from './typs';
  */
 @Injectable()
 export class NeteaseCloudMusicService {
-
   /**
    * 手机号登录
    * 请勿短时间多次调用，否则会被网易云封禁
@@ -121,8 +120,8 @@ export class NeteaseCloudMusicService {
     }
     return count;
   }
-  async refresh(cookie: string){
-    const res = await login_refresh({cookie});
+  async refresh(cookie: string) {
+    const res = await login_refresh({ cookie });
     return res;
   }
 
@@ -131,7 +130,7 @@ export class NeteaseCloudMusicService {
    * @param cookie {string}
    */
   async getUserInfo(cookie: string) {
-    const {body} = await user_account({cookie})
+    const { body } = await user_account({ cookie });
     const res = body as unknown as MusicData;
     if (res.code !== 200) {
       throw new Error(JSON.stringify(res));
@@ -142,5 +141,16 @@ export class NeteaseCloudMusicService {
       nickname: res.profile.nickname,
       avatarUrl: res.profile.avatarUrl,
     };
+  }
+
+  /**
+   * 固定用户刷音乐量
+   *
+   */
+
+  async userSign() {
+    const cookie = 'NMTID=00O92gC7UgP-pPTNU2OmIWOcKsQSpEAAAGOriEXwg; Max-Age=315360000; Expires=Mon, 03 Apr 2034 11:59:48 GMT; Path=/;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/api/feedback;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/api/feedback;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/eapi/clientlog;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/eapi/clientlog;;MUSIC_U=00761B2CBD8CEA8DBC41CD3820EAF807D6CD450CB110D188648D81A54F5ADC6FA4BA6FAA70955F7FFC5948FE98C09F53104896412C91EAD157225C15F0564CD37595A8C818E9507A3E5D333ACF431B8752781549CB4A75E805A1F210DCEE35EFA34930425597F1B50AFFEF96E4E01D0BF522B76D8FAD7A0DB59027901FD565375EF16C21EC1CDDFC8C59B4209F633C19C57A50C4171EE4B7DA85E0CC699C9CA4D8656724141CFE4DE78E61638DDAE1EFE24CBA677459487111D546442878D0EF36FA0D9BCA9643A44983314D2515C7D8812D288F7E165B54B0E9DFE636EA6C076CC5D81E4B2580EFBD38FF3953DBE0A2E1F52A03EDEDDDBBAA0531887AB012CC74C88D1420658EFF72694DE1E21DDC13B77DBE54F4456E445158C1E8B248AC7C8BA72F02EED083F0F56D8A1EE45B974641D7CEC052C32E8D2A62F0889FF212B06C3B63DFEF25492CE1920EDDEB38C9B4BE; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/neapi/feedback;;__csrf=f2d01f8b26fa70c1fb32fc442fa75f10; Max-Age=1296010; Expires=Sat, 20 Apr 2024 11:59:58 GMT; Path=/;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/neapi/clientlog;;MUSIC_SNS=; Max-Age=0; Expires=Fri, 05 Apr 2024 11:59:48 GMT; Path=/;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/openapi/clientlog;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/api/clientlog;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/weapi/feedback;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/weapi/clientlog;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/wapi/clientlog;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/wapi/clientlog;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/neapi/feedback;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/eapi/feedback;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/wapi/feedback;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/weapi/feedback;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/openapi/clientlog;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/eapi/feedback;;__remember_me=true; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/;;MUSIC_A_T=1489212237220; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/wapi/feedback;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/api/clientlog;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/neapi/clientlog;;MUSIC_R_T=1489212304246; Max-Age=2147483647; Expires=Wed, 23 Apr 2092 15:13:55 GMT; Path=/weapi/clientlog;';
+    const count = await this.sign(cookie);
+    return count;
   }
 }
